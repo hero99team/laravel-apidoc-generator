@@ -20,6 +20,7 @@
         "laravel/framework": "~5.4",
         "mpociot/documentarian": "^0.2.0",
         "mpociot/reflection-docblock": "^1.0",
+        "pearl/lumen-request-validate": "^1.0",
         "ramsey/uuid": "^3.0"
     },
     "require-dev": {

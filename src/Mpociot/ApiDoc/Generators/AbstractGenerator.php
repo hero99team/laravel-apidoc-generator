@@ -10,6 +10,7 @@ use Mpociot\Reflection\DocBlock;
 use Mpociot\Reflection\DocBlock\Tag;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Pearl\RequestValidate\RequestAbstract;
 use Mpociot\ApiDoc\Parsers\RuleDescriptionParser as Description;
 
 abstract class AbstractGenerator
@@ -201,7 +202,7 @@ abstract class AbstractGenerator
             if (! is_null($parameterType) && class_exists($parameterType->name)) {
                 $className = $parameterType->name;
 
-                if (is_subclass_of($className, FormRequest::class)) {
+                if (is_subclass_of($className, FormRequest::class)||is_subclass_of($className, RequestAbstract::class)) {
                     $parameterReflection = new $className;
                     // Add route parameter bindings
                     $parameterReflection->query->add($bindings);
