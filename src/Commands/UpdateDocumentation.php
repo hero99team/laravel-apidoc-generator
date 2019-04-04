@@ -12,16 +12,14 @@ class UpdateDocumentation extends Command
      *
      * @var string
      */
-    protected $signature = 'api:update 
-                            {--location=public/docs : The documentation location}
-    ';
+    protected $signature = 'apidoc:rebuild';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Update and rebuild your API documentation from your markdown file.';
+    protected $description = 'Rebuild your API documentation from your markdown file.';
 
     /**
      * Create a new command instance.
@@ -40,19 +38,19 @@ class UpdateDocumentation extends Command
      */
     public function handle()
     {
-        $outputPath = $this->option('location');
+        $outputPath = config('apidoc.output');
 
         $documentarian = new Documentarian();
 
         if (! is_dir($outputPath)) {
-            $this->error('There is no generated documentation available at '.$outputPath.'.');
+            $this->error('There is no existing documentation available at '.$outputPath.'.');
 
             return false;
         }
-        $this->info('Updating API HTML code');
+        $this->info('Rebuilding API HTML code from '.$outputPath.'/source/index.md');
 
         $documentarian->generate($outputPath);
 
-        $this->info('Wrote HTML documentation to: '.$outputPath.'/public/index.html');
+        $this->info('Wrote HTML documentation to: '.$outputPath.'/index.html');
     }
 }
